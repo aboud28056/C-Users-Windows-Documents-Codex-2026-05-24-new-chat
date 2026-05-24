@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1f6f68" />
+    <meta
+      name="description"
+      content="Open-source neighborhood marketplace with location-aware listings and four languages."
+    />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>NeighborMart</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="NeighborMart">
+        <span class="brand-mark">N</span>
+        <span>NeighborMart</span>
+      </a>
+
+      <nav class="nav-actions" aria-label="Primary">
+        <select id="languageSelect" class="select" aria-label="Language">
+          <option value="ar">العربية</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+        </select>
+        <button id="installButton" class="icon-button hidden" type="button" title="Install app">
+          <span aria-hidden="true">⬇</span>
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="eyebrow">سوق الجيران المفتوح</p>
+          <h1 data-i18n="headline">اعرض واشترِ من جيرانك القريبين</h1>
+          <p class="hero-text" data-i18n="subhead">
+            تطبيق مجاني ومفتوح المصدر لبيع الأشياء والخدمات محلياً باستخدام موقعك الجغرافي.
+          </p>
+          <div class="hero-actions">
+            <button id="locationButton" class="primary-button" type="button">
+              <span aria-hidden="true">◎</span>
+              <span data-i18n="useLocation">استخدم موقعي</span>
+            </button>
+            <button id="seedButton" class="secondary-button" type="button">
+              <span aria-hidden="true">＋</span>
+              <span data-i18n="demoData">بيانات تجريبية</span>
+            </button>
+          </div>
+        </div>
+        <aside class="location-panel" aria-live="polite">
+          <span class="panel-label" data-i18n="locationStatus">حالة الموقع</span>
+          <strong id="locationStatus" data-i18n="locationWaiting">لم يتم تفعيل الموقع بعد</strong>
+          <small id="locationHint" data-i18n="locationHint">
+            يمكنك رؤية المسافات عند السماح للمتصفح بالوصول للموقع.
+          </small>
+        </aside>
+      </section>
+
+      <section class="workspace" aria-label="Marketplace">
+        <aside class="filters">
+          <div class="field">
+            <label for="searchInput" data-i18n="search">بحث</label>
+            <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="دراجة، كتاب، خدمة..." />
+          </div>
+
+          <div class="field">
+            <label for="categorySelect" data-i18n="category">التصنيف</label>
+            <select id="categorySelect">
+              <option value="all" data-i18n="allCategories">كل التصنيفات</option>
+              <option value="home" data-i18n="home">منزل</option>
+              <option value="electronics" data-i18n="electronics">إلكترونيات</option>
+              <option value="services" data-i18n="services">خدمات</option>
+              <option value="kids" data-i18n="kids">أطفال</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="radiusInput">
+              <span data-i18n="radius">نطاق البحث</span>
+              <strong><span id="radiusValue">5</span> km</strong>
+            </label>
+            <input id="radiusInput" type="range" min="1" max="25" value="5" />
+          </div>
+
+          <form id="listingForm" class="listing-form">
+            <h2 data-i18n="addListing">أضف عرضاً</h2>
+            <div class="field">
+              <label for="titleInput" data-i18n="title">العنوان</label>
+              <input id="titleInput" required maxlength="60" data-i18n-placeholder="titlePlaceholder" placeholder="مثال: كرسي مكتب" />
+            </div>
+            <div class="field">
+              <label for="priceInput" data-i18n="price">السعر</label>
+              <input id="priceInput" required inputmode="decimal" data-i18n-placeholder="pricePlaceholder" placeholder="20" />
+            </div>
+            <div class="field">
+              <label for="descriptionInput" data-i18n="description">الوصف</label>
+              <textarea id="descriptionInput" rows="3" maxlength="140" data-i18n-placeholder="descriptionPlaceholder" placeholder="حالة المنتج، طريقة الاستلام..."></textarea>
+            </div>
+            <button class="primary-button full" type="submit" data-i18n="publish">نشر</button>
+          </form>
+        </aside>
+
+        <section class="listings-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" data-i18n="nearby">بالقرب منك</p>
+              <h2 data-i18n="latestListings">أحدث العروض</h2>
+            </div>
+            <span id="resultCount" class="result-count">0</span>
+          </div>
+          <div id="listings" class="listings" aria-live="polite"></div>
+        </section>
+      </section>
+    </main>
+
+    <template id="listingTemplate">
+      <article class="listing-card">
+        <div class="listing-media"></div>
+        <div class="listing-body">
+          <div class="listing-main">
+            <h3></h3>
+            <strong class="price"></strong>
+          </div>
+          <p class="description"></p>
+          <div class="meta">
+            <span class="category"></span>
+            <span class="distance"></span>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
